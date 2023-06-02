@@ -1,0 +1,28 @@
+<div class="AllContainer">
+  <div class="title">
+    <span class="titleName">背景を変更する</span>
+  </div>
+
+  <div class="container">
+    <div class="item" *ngFor="let item of imgList">
+      <p class="itemName">{{ item.name }}</p>
+      <div class="itemImg" [class.isSelected]="item.id === int">
+        <div class="showItem">
+          <div class="shoeItemInner">
+            <p>設定中</p>
+          </div>
+        </div>
+
+        <div class="innerImage">
+          <img [src]="'assets/bgImages/img' + item.id + '.jpg'" />
+        </div>
+        <div class="itemSelect">
+          <div class="itemInner">
+            <p>この背景に変更しますか？</p>
+            <span class="click" (click)="change(item.id)">OK</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,26 @@
+<div class="grid">
+  <ul *ngFor="let pokemon of viewPokemon ?? []">
+    <ng-container *ngIf="pokemon">
+      <li class="pokemonListName">
+        <span class="pokemon-id">No.{{ pokemon.id }}</span>
+        <ng-container *ngIf="pokemon.name && pokemon.name.japanese">{{
+          pokemon.name.japanese
+        }}</ng-container>
+      </li>
+      <li class="imgList" [style.background-color]="pokemon.type | colorTypes">
+        <img
+          routerLink="{{ pokemon.id }}"
+          src="./assets/images/{{ pokemon.id | number : '3.0' }}.png"
+          alt=""
+        />
+      </li>
+    </ng-container>
+    <ng-container *ngIf="!pokemon" class="notPokemonListContainer">
+      <div class="notPokemonList">
+        <div class="notPokemonListInner">
+          <h1>該当するポケモンが見つかりませんでした。</h1>
+        </div>
+      </div>
+    </ng-container>
+  </ul>
+</div>

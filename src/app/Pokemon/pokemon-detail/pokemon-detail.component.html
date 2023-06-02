@@ -1,0 +1,22 @@
+<div class="container">
+  <div
+    *ngIf="pokemon"
+    class="pokemon"
+    [style.background-color]="pokemon.type | colorTypes"
+  >
+    <img src="./assets/images/{{ pokemon.id | number : '3.0' }}.png" alt="" />
+    <div>
+      <p>名前：{{ pokemon.name.japanese }}</p>
+      <p>{{ pokemon.type | types }}</p>
+    </div>
+    <div>
+      <p>体力：{{ pokemon.base.HP }}</p>
+      <p>攻撃：{{ pokemon.base.Attack }}</p>
+      <p>防御：{{ pokemon.base.Defense }}</p>
+      <p>スピード：{{ pokemon.base.Speed }}</p>
+    </div>
+    <div class="btnContainer">
+      <button (click)="goBack()">戻る</button>
+    </div>
+  </div>
+</div>

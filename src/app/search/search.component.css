@@ -1,0 +1,79 @@
+.header {
+  padding: 20px 20px 20px 40px;
+  margin-left: auto;
+  position: fixed;
+  z-index: 10;
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+form {
+  margin-left: 20px;
+}
+
+h1 {
+  display: inline;
+  margin-right: 60px;
+}
+a {
+  cursor: pointer;
+  text-decoration: none;
+  font-weight: bold;
+}
+button {
+  margin-left: 10px;
+}
+.headerTab a {
+  margin: 0 10px;
+  border-radius: 5px;
+  padding: 10px;
+  font-size: 12px;
+}
+
+.icon {
+  font-size: 20px;
+  margin-left: 5px;
+  cursor: pointer;
+  padding: 5px;
+  border-radius: 5px;
+}
+.icon:hover {
+  color: black;
+  opacity: 0.9;
+  background: white;
+}
+
+.search-box {
+  position: relative;
+}
+
+.search-box {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.search-box input {
+  width: 200px;
+  padding: 8px 6px;
+  outline: none;
+  font-size: 16px;
+  background: transparent;
+}
+input {
+  font-weight: bold;
+}
+input::placeholder {
+  opacity: 0.8;
+  font-weight: bold;
+}
+
+.search-box .search-icon {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  color: #666;
+}

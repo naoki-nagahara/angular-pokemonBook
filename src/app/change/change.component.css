@@ -1,0 +1,153 @@
+.AllContainer {
+  height: 100%;
+}
+.title {
+  padding: 120px 0 10px 0px;
+  text-align: center;
+}
+.title p {
+  margin: 0;
+  padding: 0;
+}
+.container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 30px;
+  width: 90%;
+  margin: 0 auto 40px auto;
+}
+.item {
+  margin: 0 20px;
+}
+
+.item p {
+  margin: 0;
+  font-weight: bold;
+  position: relative;
+  margin-bottom: 5px;
+}
+.itemImg {
+  padding: 7px;
+  position: relative;
+  overflow: hidden;
+  border-radius: 10px;
+}
+.itemText {
+  position: absolute;
+  width: 20%;
+  background: white;
+  color: red;
+  top: 5%;
+  left: 3%;
+  border-radius: 10px;
+  border: 3px solid black;
+  display: none;
+}
+.itemTextInner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.itemText p {
+  margin: 0;
+}
+
+.itemInner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.itemInner span {
+  background: white;
+  margin: 20px 10px;
+  color: black;
+  border-radius: 5px;
+  font-weight: bold;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.itemInner p {
+  margin-bottom: 20px;
+  font-size: 14px;
+  color: black;
+  font-weight: bold;
+}
+.itemInner span:nth-of-type(1) {
+  background: red;
+  color: white;
+}
+.itemInner span:nth-of-type(1):hover {
+  background: rgb(200, 51, 51);
+}
+
+.itemSelect {
+  background: white;
+  top: 0;
+  right: 5%;
+  width: 20%;
+  height: 55%;
+  border-radius: 0 0 10px 10px;
+  position: absolute;
+  align-items: center;
+  z-index: 10;
+  transform: translateY(-300px);
+  transition: 0.4s;
+  color: white;
+  text-align: center;
+}
+
+.itemImg:hover .itemSelect {
+  transform: translateY(0px);
+}
+.itemImg:hover {
+  outline: 7px solid rgb(243, 33, 33);
+  outline-offset: -7px;
+  padding: 7px;
+}
+
+img {
+  text-align: center;
+  width: 100%;
+  height: auto;
+  display: block;
+}
+.titleName {
+  padding: 5px 40px;
+  font-size: 24px;
+  border-radius: 10px;
+  font-weight: bold;
+}
+.isSelected {
+  outline: 7px solid rgb(243, 33, 33);
+  outline-offset: -7px;
+  padding: 7px;
+}
+.itemImg {
+  position: relative;
+}
+.showItem {
+  display: none;
+  display: absolute;
+}
+
+.isSelected .showItem {
+  display: absolute;
+  bottom: 0;
+  display: block;
+  color: red;
+}
+.shoeItemInner p {
+  margin: 0;
+  color: black;
+}
+.shoeItemInner {
+  position: absolute;
+  padding: 10px 30px;
+  background: #fff;
+  top: 15px;
+  left: 15px;
+  border-radius: 10px;
+  border: 3px solid black;
+}

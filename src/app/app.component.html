@@ -1,0 +1,12 @@
+<body
+  [ngClass]="{
+    dark: theme === 'dark',
+    white: theme === 'white',
+    middle: theme === 'middle'
+  }"
+  [style.backgroundImage]="'url(' + imageUrl + ')'"
+>
+  <app-search></app-search>
+  <router-outlet></router-outlet>
+  <app-footer></app-footer>
+</body>

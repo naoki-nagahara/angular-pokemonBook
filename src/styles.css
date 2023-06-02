@@ -1,0 +1,139 @@
+/* You can add global styles to this file, and also import other style files */
+:root {
+  --darkBgColor: rgb(46, 52, 64);
+  --whiteBgColor: rgb(255, 185, 15);
+  --darkTextColor: rgb(216, 222, 233);
+  --headerBGColor: var(--white);
+  --headerTabColor: var(--darkBgColor);
+  --headerTabHoverBgColor: var(--darkBgColor);
+  --headerTabSelectColor: var(--darkTextColor);
+  --headerTitleColor: var(--darkBgColor);
+  --pokemonListName: var(--darkTextColor);
+  --imageTitleName: var(--darkTextColor);
+  --imageTitleBg: var(--darkTextColor);
+  --itemListBgColor: var(--darkTextColor);
+  --itemHoverColor: #ccc;
+  --changeItemImage: var(--darkTextColor);
+  --changeItemName: var(--darkTextColor);
+  --footerBgColor: RGB(253, 185, 36);
+  --iconThemeColor: var(--darkBgColor);
+  --inputFocusColor: white;
+  --inputPlaceFolderColor: black;
+  --footerTextColor: black;
+}
+
+.white {
+  --headerBGColor: var(--whiteBgColor);
+  --headerTitleColor: black;
+  --headerTabColor: black;
+  --headerTabHoverBgColor: #333;
+  --headerTabSelectColor: white;
+  --imageTitleName: black;
+  --imageTitleBg: var(--darkTextColor);
+  --pokemonListName: white;
+  --itemHoverColor: #ccc;
+  --changeItemImage: white;
+  --changeItemName: white;
+  --itemListBgColor: white;
+  --footerBgColor: RGB(253, 185, 36);
+  --iconThemeColor: var(--darkBgColor);
+  --inputFocusColor: white;
+  --inputPlaceFolderColor: black;
+  --footerTextColor: black;
+}
+.dark {
+  --headerBGColor: var(--darkBgColor);
+  --headerTabColor: white;
+  --headerTabHoverBgColor: #ddd;
+  --headerTitleColor: white;
+  --headerTabSelectColor: black;
+  --imageTitleName: white;
+  --imageTitleBg: var(--darkBgColor);
+  --pokemonListName: black;
+  --itemHoverColor: #ccc;
+  --changeItemImage: var(--darkBgColor);
+  --changeItemName: black;
+  --itemListBgColor: white;
+  --footerBgColor: RGB(76, 86, 106);
+  --iconThemeColor: var(--darkTextColor);
+  --inputFocusColor: red;
+  --inputPlaceFolderColor: white;
+  --footerTextColor: white;
+}
+
+.middle {
+  --headerBGColor: RGB(94, 129, 172);
+  --headerTabColor: white;
+  --headerTabHoverBgColor: #ddd;
+  --headerTitleColor: black;
+  --headerTabSelectColor: black;
+  --imageTitleName: white;
+  --imageTitleBg: RGB(94, 129, 172);
+  --pokemonListName: white;
+  --itemHoverColor: #ccc;
+  --changeItemImage: RGB(94, 129, 172);
+  --changeItemName: white;
+  --itemListBgColor: white;
+  --footerBgColor: RGB(222, 226, 230);
+  --iconThemeColor: black;
+  --inputFocusColor: black;
+  --footerTextColor: black;
+}
+
+.header {
+  background-color: var(--headerBGColor);
+}
+.headerTitle {
+  color: var(--headerTitleColor);
+}
+.headerTab a {
+  background-color: var(--headerBGColor);
+  color: var(--headerTabColor);
+}
+.headerTab a:hover {
+  background: var(--headerTabHoverBgColor);
+  color: var(--headerTabSelectColor);
+}
+.headerTab .selected {
+  background-color: var(--headerTabColor);
+  color: var(--headerTabSelectColor);
+}
+.titleName {
+  color: var(--imageTitleName);
+  background-color: var(--imageTitleBg);
+}
+.pokemonListName {
+  color: var(--pokemonListName);
+}
+.itemImg {
+  background: var(--changeItemImage);
+}
+.itemName {
+  color: var(--changeItemName);
+}
+.itemList:hover {
+  background-color: var(--itemHoverColor);
+}
+.itemList {
+  color: black;
+  background: var(--itemListBgColor);
+}
+footer {
+  background: var(--footerBgColor);
+  color: var(--footerTextColor);
+}
+.icon {
+  color: var(--iconThemeColor);
+}
+.search-box input {
+  color: var(--iconThemeColor);
+  border: none;
+  border-bottom: 3px solid var(--iconThemeColor);
+}
+.search-box input::placeholder {
+  color: var(--inputPlaceFolderColor);
+}
+.search-box input:focus {
+  border-bottom-color: var(--inputFocusColor);
+  border-bottom: 5px dotted var(--iconThemeColor);
+}

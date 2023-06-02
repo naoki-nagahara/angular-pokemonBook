@@ -1,0 +1,28 @@
+<header class="header">
+  <a routerLink="/"><h1 class="headerTitle">ポケモン大図鑑</h1></a>
+  <div class="headerTab">
+    <a routerLink="/" [class.selected]="currentTab === '/'">ポケモン一覧</a>
+    <a routerLink="/item" [class.selected]="currentTab === '/item'"
+      >アイテム一覧</a
+    >
+    <a routerLink="/change" [class.selected]="currentTab === '/change'"
+      >着せ替え</a
+    >
+  </div>
+  <form>
+    <div class="search-box">
+      <input
+        (keyup.enter)="getPokemon(formText.value); formText.value = ''"
+        type="text"
+        #formText
+        placeholder="ポケモンを調べる"
+      />
+      <fa-icon
+        class="icon"
+        (click)="getPokemon(formText.value); formText.value = ''"
+        [icon]="faSearch"
+        routerLink="/"
+      ></fa-icon>
+    </div>
+  </form>
+</header>

@@ -1,0 +1,29 @@
+<!-- ボール　技マシン　回復　木の実　持ち物　 -->
+<div class="container">
+  <h1>ボール</h1>
+  <div class="itemLists">
+    <div *ngFor="let ball of balls">
+      <span class="itemList">{{ ball.name.japanese }}</span>
+    </div>
+  </div>
+  <h1>回復</h1>
+  <div class="itemLists">
+    <div class="item" *ngFor="let repair of repairs">
+      <span class="itemList">{{ repair.name.japanese }}</span>
+    </div>
+  </div>
+
+  <h1>木の実</h1>
+  <div class="itemLists">
+    <div *ngFor="let tree of trees">
+      <span class="itemList">{{ tree.name.japanese }}</span>
+    </div>
+  </div>
+
+  <h1>技マシン</h1>
+  <div class="itemLists">
+    <div *ngFor="let machine of machines">
+      <span class="itemList">{{ machine.name.japanese }}</span>
+    </div>
+  </div>
+</div>
