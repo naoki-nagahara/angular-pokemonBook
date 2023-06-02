@@ -5,6 +5,7 @@ import { Observable, Subject } from 'rxjs';
   providedIn: 'root',
 })
 export class ChangeService {
+  isShow: boolean = false;
   constructor() {}
   shareImage: any;
   private reloadAppSubject = new Subject<boolean>();

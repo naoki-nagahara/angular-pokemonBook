@@ -3,9 +3,9 @@ import { Router, NavigationEnd } from '@angular/router';
 import { PokemonService } from '../service/pokemon.service';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { Store } from '@ngrx/store';
-import { createPokemon } from '../pokemon.action';
+import { searchPokemon } from '../pokemon.action';
 import { PokemonType } from '../types/Pokemon';
-import { Location } from '@angular/common';
+import { ChangeService } from '../service/change.service';
 
 @Component({
   selector: 'app-search',
@@ -15,12 +15,12 @@ import { Location } from '@angular/common';
 export class SearchComponent {
   faSearch = faSearch;
   currentTab?: string;
-  result?: PokemonType[];
   pokemonList?: PokemonType[];
+  isShow: boolean = false;
+  inputText = '';
 
   constructor(
     private router: Router,
-    private location: Location,
     private pokemonService: PokemonService,
     private store: Store<{ pokeStore: PokemonType }>
   ) {}
@@ -28,27 +28,42 @@ export class SearchComponent {
   ngOnInit() {
     this.getURL();
   }
+
   getPokemon(str: string) {
-    this.pokemonService.getPokemon().subscribe((poke) => {
-      this.pokemonList = poke;
-    });
-    let result: any = this.pokemonList?.find((a) => a.name.japanese === str);
-    console.log(result);
-    this.store.dispatch(createPokemon({ pokemon: result }));
-    this.router.navigateByUrl('/');
+    //ひらがなをカタカナに置換
+    if (this.inputText.length) {
+      this.isShow = false;
+      let regex = /[ぁ-ゞ]/g;
+      let newStr = str.replace(regex, (match) => {
+        const charCode = match.charCodeAt(0) + 0x60;
+        return String.fromCharCode(charCode);
+      });
+      this.pokemonService.getPokemon().subscribe((poke) => {
+        this.pokemonList = poke;
+      });
+
+      let searchResult: any = this.pokemonList?.filter((i) =>
+        i.name.japanese.includes(newStr)
+      );
+      if (searchResult.length) {
+        this.isShow = false;
+        this.store.dispatch(searchPokemon({ pokemon: searchResult }));
+      } else {
+        this.isShow = true;
+      }
+      this.router.navigateByUrl('/');
+    }
   }
-  // reloadPage() {
-  //   this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
-  //     window.location.reload();
-  //     this.router.navigate(['/']);
-  //   });
-  // }
+  reloadPage() {
+    this.router.navigateByUrl('/').then(() => {
+      window.location.reload();
+    });
+  }
 
   getURL() {
     this.router.events.subscribe((e) => {
       if (e instanceof NavigationEnd) {
         this.currentTab = this.router.url;
-        console.log(this.currentTab);
       }
     });
   }

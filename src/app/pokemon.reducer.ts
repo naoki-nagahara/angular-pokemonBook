@@ -1,6 +1,5 @@
-import { Injectable } from '@angular/core';
 import { POKEMON } from './api/pokedex';
-import { changeAction, createPokemon } from './pokemon.action';
+import { changeAction, createPokemon, searchPokemon } from './pokemon.action';
 import { createReducer, on } from '@ngrx/store';
 import { createEffect, Actions, ofType } from '@ngrx/effects';
 import { PokemonService } from './service/pokemon.service';
@@ -20,7 +19,7 @@ export const initialImage: StoreApp = {
   theme: 'white',
 };
 
-export const pokemons: any = POKEMONAPI;
+export const pokemons: any = POKEMON;
 
 // export class PokemonEffects {
 //   loadPokemon$ = createEffect(() =>
@@ -54,5 +53,9 @@ export const ViewPokemon = createReducer(
   pokemons,
   on(createPokemon, (state, { pokemon }) => {
     return ([state] = [pokemon]);
+  }),
+  //文字列検索した結果を返す。
+  on(searchPokemon, (state, { pokemon }) => {
+    return pokemon;
   })
 );

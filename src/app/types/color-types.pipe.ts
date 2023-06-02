@@ -11,7 +11,6 @@ export class ColorTypesPipe implements PipeTransform {
     water: 0x5656e1,
     bug: 0x70ec70,
     grass: 0x23e623,
-
     ice: 0xff96d9,
     fighting: 0xffc22e,
     poison: 0x993999,

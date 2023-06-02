@@ -21,10 +21,7 @@ export class ChangeComponent {
   imgList = IMGLIST;
   InitialNumber?: number;
 
-  constructor(
-    private shareService: ChangeService,
-    private store: Store<{ store: StoreApp }>
-  ) {}
+  constructor(private store: Store<{ store: StoreApp }>) {}
 
   ngOnInit() {
     let get = localStorage.getItem('Number');

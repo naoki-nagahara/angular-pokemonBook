@@ -14,3 +14,7 @@ export const createPokemon = createAction(
   'createPokemon',
   props<{ pokemon: PokemonType }>()
 );
+export const searchPokemon = createAction(
+  'searchPokemon',
+  props<{ pokemon: PokemonType }>()
+);

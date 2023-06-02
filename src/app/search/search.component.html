@@ -1,5 +1,7 @@
 <header class="header">
-  <a routerLink="/"><h1 class="headerTitle">ポケモン大図鑑</h1></a>
+  <a routerLink="/" (click)="reloadPage()"
+    ><h1 class="headerTitle">ポケモン大図鑑</h1></a
+  >
   <div class="headerTab">
     <a routerLink="/" [class.selected]="currentTab === '/'">ポケモン一覧</a>
     <a routerLink="/item" [class.selected]="currentTab === '/item'"
@@ -10,19 +12,28 @@
     >
   </div>
   <form>
+    <ng-container *ngIf="isShow">
+      <p>見つかりませんでした。</p>
+    </ng-container>
+
     <div class="search-box">
       <input
         (keyup.enter)="getPokemon(formText.value); formText.value = ''"
         type="text"
         #formText
+        [(ngModel)]="inputText"
         placeholder="ポケモンを調べる"
+        name="inputText"
       />
+
       <fa-icon
         class="icon"
         (click)="getPokemon(formText.value); formText.value = ''"
         [icon]="faSearch"
         routerLink="/"
+        [ngStyle]="{ opacity: formText.value ? '1' : '0.5' }"
       ></fa-icon>
     </div>
   </form>
+  <div class="itemCounter"></div>
 </header>
