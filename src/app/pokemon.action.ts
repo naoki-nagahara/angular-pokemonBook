@@ -18,3 +18,7 @@ export const searchPokemon = createAction(
   'searchPokemon',
   props<{ pokemon: PokemonType }>()
 );
+export const sortPokemon = createAction(
+  'sortPokemon',
+  props<{ pokemon: PokemonType }>()
+);

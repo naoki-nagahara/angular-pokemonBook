@@ -21,22 +21,22 @@ export class ItemListComponent {
   }
 
   getItemBall() {
-    this.itemService.getItemData('BALLS').subscribe((item) => {
+    this.itemService.getItemData('BALLS').subscribe((item: Item[]) => {
       this.balls = item;
     });
   }
   getItemTree() {
-    this.itemService.getItemData('TREE').subscribe((item) => {
+    this.itemService.getItemData('TREE').subscribe((item: Item[]) => {
       this.trees = item;
     });
   }
   getItemRepair() {
-    this.itemService.getItemData('REPAIR').subscribe((item) => {
+    this.itemService.getItemData('REPAIR').subscribe((item: Item[]) => {
       this.repairs = item;
     });
   }
   getItemMachine() {
-    this.itemService.getItemData('MACHINE').subscribe((item) => {
+    this.itemService.getItemData('MACHINE').subscribe((item: Item[]) => {
       this.machines = item;
     });
   }

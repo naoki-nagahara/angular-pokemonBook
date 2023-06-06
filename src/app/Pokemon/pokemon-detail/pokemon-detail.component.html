@@ -5,18 +5,53 @@
     [style.background-color]="pokemon.type | colorTypes"
   >
     <img src="./assets/images/{{ pokemon.id | number : '3.0' }}.png" alt="" />
-    <div>
+    <div class="nameContainer">
       <p>名前：{{ pokemon.name.japanese }}</p>
       <p>{{ pokemon.type | types }}</p>
     </div>
-    <div>
-      <p>体力：{{ pokemon.base.HP }}</p>
-      <p>攻撃：{{ pokemon.base.Attack }}</p>
-      <p>防御：{{ pokemon.base.Defense }}</p>
-      <p>スピード：{{ pokemon.base.Speed }}</p>
+    <div class="inputContainer">
+      <div>
+        <p>HP</p>
+        <input
+          type="text"
+          [(ngModel)]="pawerText"
+          [value]="pawerText"
+          (keyup.enter)="saveButton()"
+        />
+      </div>
+      <div>
+        <p>攻撃</p>
+        <input
+          type="text"
+          [(ngModel)]="attackText"
+          (keyup.enter)="saveButton()"
+        />
+      </div>
+      <div>
+        <p>防御</p>
+        <input
+          type="text"
+          [(ngModel)]="defenseText"
+          [value]="pokemon.base.Defense"
+          (keyup.enter)="saveButton()"
+        />
+      </div>
+      <div>
+        <p>スピード</p>
+        <input
+          type="text"
+          [(ngModel)]="speedText"
+          value="{{ pokemon.base.Speed }}"
+          (keyup.enter)="saveButton()"
+        />
+      </div>
     </div>
     <div class="btnContainer">
       <button (click)="goBack()">戻る</button>
+    </div>
+
+    <div class="saveButton">
+      <button (click)="saveButton()">保存</button>
     </div>
   </div>
 </div>

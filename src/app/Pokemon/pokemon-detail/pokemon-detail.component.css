@@ -22,6 +22,9 @@ img {
   justify-content: center;
   gap: 20px;
 }
+.nameContainer p {
+  margin: 0;
+}
 .btnContainer {
   position: absolute;
   top: 10%;
@@ -35,6 +38,33 @@ button {
   border: none;
   border-radius: 5px;
   font-weight: bold;
+}
+button:hover {
+  background: #ccc;
+}
+.inputContainer {
+  margin: 20px 0;
+}
+.inputContainer p {
+  margin: 0;
+  text-align: center;
+}
+input {
+  height: 25px;
+  width: 50%;
+  text-align: center;
+  border-radius: 5px;
+  border: none;
+  font-weight: bold;
+  font-size: 18px;
+  padding: 5px;
+  margin-top: 5px;
+}
+.saveButton {
+  padding-bottom: 20px;
+}
+.saveButton button {
+  padding: 5px 20%;
 }
 
 @media screen and (max-width: 768px) {

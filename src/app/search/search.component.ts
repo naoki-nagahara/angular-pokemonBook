@@ -1,23 +1,27 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { PokemonService } from '../service/pokemon.service';
-import { faSearch } from '@fortawesome/free-solid-svg-icons';
+import { IconDefinition, faSearch } from '@fortawesome/free-solid-svg-icons';
 import { Store } from '@ngrx/store';
-import { searchPokemon } from '../pokemon.action';
+import { searchPokemon, sortPokemon } from '../pokemon.action';
 import { PokemonType } from '../types/Pokemon';
-import { ChangeService } from '../service/change.service';
+import { Subscription } from 'rxjs';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.css'],
 })
-export class SearchComponent {
-  faSearch = faSearch;
+export class SearchComponent implements OnInit, OnDestroy {
+  faSearch: IconDefinition = faSearch;
   currentTab?: string;
   pokemonList?: PokemonType[];
   isShow: boolean = false;
-  inputText = '';
+  subscription?: Subscription;
+  inputText: string = '';
+  selectValue: string = 'HP';
+  selectRadio: string = 'upButton';
 
   constructor(
     private router: Router,
@@ -27,6 +31,38 @@ export class SearchComponent {
 
   ngOnInit() {
     this.getURL();
+  }
+  ngOnDestroy() {
+    this.subscription?.unsubscribe();
+  }
+  onSelect(selectedValue: string) {
+    switch (selectedValue) {
+      case 'HP':
+        this.selectValue = 'HP';
+        break;
+      case '攻撃':
+        this.selectValue = 'Attack';
+        break;
+      case '防御':
+        this.selectValue = 'Defense';
+        break;
+      case 'スピード':
+        this.selectValue = 'Speed';
+        break;
+    }
+  }
+  onClick() {
+    let pokeList: any;
+    let newPoke: any;
+    this.store.select('pokeStore').subscribe((poke) => (pokeList = poke));
+    newPoke = pokeList
+      .slice()
+      .sort((a: any, b: any) =>
+        this.selectRadio === 'upButton'
+          ? b.base[this.selectValue] - a.base[this.selectValue]
+          : a.base[this.selectValue] - b.base[this.selectValue]
+      );
+    this.store.dispatch(sortPokemon({ pokemon: newPoke }));
   }
 
   getPokemon(str: string) {

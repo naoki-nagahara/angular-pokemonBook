@@ -35,5 +35,38 @@
       ></fa-icon>
     </div>
   </form>
-  <div class="itemCounter"></div>
+  <div class="custom-select">
+    <form action="">
+      <select
+        name="change"
+        id="sortSelect"
+        (change)="onSelect(sortSelect.value)"
+        #sortSelect
+      >
+        <option [ngValue]="'HP'">HP</option>
+        <option [ngValue]="'Attack'">攻撃</option>
+        <option [ngValue]="'Defense'">防御</option>
+        <option [ngValue]="'Speed'">スピード</option>
+      </select>
+      <input
+        type="radio"
+        id="option1"
+        name="options"
+        value="upButton"
+        [(ngModel)]="selectRadio"
+        checked
+      />
+      <label for="option1">高い順</label>
+      <input
+        type="radio"
+        id="option2"
+        name="options"
+        value="downButton"
+        [(ngModel)]="selectRadio"
+      />
+      <label for="option2">低い順</label>
+      <button (click)="onClick()">並び替え</button>
+    </form>
+  </div>
+  <!-- <button (click)="getSort('Attack')">sort</button> -->
 </header>

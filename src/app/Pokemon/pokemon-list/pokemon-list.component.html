@@ -1,6 +1,5 @@
-<div class="grid">
+<div class="grid" *ngIf="viewPokemon">
   <p class="pokemonNumber">全{{ viewPokemon.length }}匹</p>
-
   <ul *ngFor="let pokemon of viewPokemon">
     <ng-container *ngIf="viewPokemon.length">
       <li class="pokemonListName">

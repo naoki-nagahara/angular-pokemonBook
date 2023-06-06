@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { StoreApp } from './pokemon.reducer';
+import { PokemonService } from './service/pokemon.service';
 
 @Component({
   selector: 'app-root',
@@ -15,8 +16,12 @@ export class AppComponent {
   Show: Boolean = true;
   theme = '';
   imageUrl?: string;
+  localPokemon?: any;
 
-  constructor(private store: Store<{ store: StoreApp }>) {
+  constructor(
+    private store: Store<{ store: StoreApp }>,
+    private pokemonService: PokemonService
+  ) {
     this.image$ = this.store.select('store');
     this.image$!.subscribe((url: StoreApp) => (this.imageUrl = url.url));
     this.isColor$ = this.store.select('store');
@@ -32,15 +37,9 @@ export class AppComponent {
       localStorage.setItem('Theme', this.theme);
     }
   }
-  ngOnInit() {}
+  ngOnInit() {
+    this.pokemonService
+      .getPokemon()
+      .subscribe((poke) => (this.localPokemon = poke));
+  }
 }
-
-//発火のトリガーは別の関数で真偽値で決めて、それを判定にして変わったタイミングで
-//関数を実行できるようにする。
-//appcomponentのngInitは最初のタイミングで走るので、後ろで強制的に走らせる処理をしなくてはだめ。
-// this.shareService.ReloadApp().subscribe((isSet) => {
-//   if (isSet) {
-//     //クリックされたから、setReloadがtureになり、この処理が走る
-//     this.imageUrl = this.shareService.getShareImage();
-//   }
-// });
