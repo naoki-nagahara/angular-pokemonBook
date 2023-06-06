@@ -37,14 +37,13 @@ button {
   cursor: pointer;
   padding: 5px;
   border-radius: 5px;
-  /* opacity: 0.3; */
 }
-/* .icon:hover {
-  color: black;
-  opacity: 0.9;
-  background: white;
-} */
-
+.custom-select {
+  display: none;
+}
+.isShow {
+  display: block;
+}
 .search-box {
   position: relative;
 }
@@ -57,7 +56,6 @@ button {
 
 .search-box input {
   width: 200px;
-  /* padding: 8px 6px; */
   outline: none;
   font-size: 16px;
   background: transparent;

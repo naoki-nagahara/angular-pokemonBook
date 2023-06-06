@@ -7,12 +7,30 @@
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   height: auto;
 }
+.message {
+  position: fixed;
+  top: 0%;
+  left: 2%;
+  width: 20%;
+  opacity: 0.8;
+  text-align: center;
+  background: white;
+  font-weight: bold;
+  border: 2px solid black;
+  padding: 20px;
+  border-radius: 10px;
+  opacity: 0;
+  transition: 0.7s;
+}
+.isShow {
+  top: 10%;
+  opacity: 0.9;
+  transition: 0.7s;
+}
 .pokemonNumber {
   font-weight: bold;
   font-size: 26px;
   margin: auto;
-  /* color: white; */
-  /* background: #000; */
   padding: 20px;
   border-radius: 10px;
 }

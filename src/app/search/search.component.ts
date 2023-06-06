@@ -1,12 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Router, NavigationEnd } from '@angular/router';
+import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
 import { PokemonService } from '../service/pokemon.service';
 import { IconDefinition, faSearch } from '@fortawesome/free-solid-svg-icons';
 import { Store } from '@ngrx/store';
 import { searchPokemon, sortPokemon } from '../pokemon.action';
 import { PokemonType } from '../types/Pokemon';
 import { Subscription } from 'rxjs';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @Component({
   selector: 'app-search',
@@ -18,6 +17,7 @@ export class SearchComponent implements OnInit, OnDestroy {
   currentTab?: string;
   pokemonList?: PokemonType[];
   isShow: boolean = false;
+  isShowURL: boolean = false;
   subscription?: Subscription;
   inputText: string = '';
   selectValue: string = 'HP';
@@ -25,12 +25,18 @@ export class SearchComponent implements OnInit, OnDestroy {
 
   constructor(
     private router: Router,
+    private route: ActivatedRoute,
     private pokemonService: PokemonService,
     private store: Store<{ pokeStore: PokemonType }>
   ) {}
 
   ngOnInit() {
     this.getURL();
+    this.router.events.subscribe((e) => {
+      if (e instanceof NavigationEnd) {
+        e.url === '/' ? (this.isShowURL = true) : (this.isShowURL = false);
+      }
+    });
   }
   ngOnDestroy() {
     this.subscription?.unsubscribe();

@@ -15,7 +15,6 @@
 }
 img {
   object-fit: contain;
-  /* width: 100%; */
 }
 .pokemon > div {
   display: flex;
@@ -59,12 +58,61 @@ input {
   font-size: 18px;
   padding: 5px;
   margin-top: 5px;
+  cursor: pointer;
 }
-.saveButton {
-  padding-bottom: 20px;
+
+.save {
+  display: block;
+  width: 50%;
+  padding: 10px 100px;
+  margin-top: 20px;
 }
-.saveButton button {
-  padding: 5px 20%;
+
+.btnModal {
+  position: absolute;
+  width: 40%;
+  bottom: -30%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: white;
+  border-radius: 10px;
+  border: 2px solid black;
+  opacity: 0;
+  transition: 0.4s;
+}
+.isShow {
+  opacity: 1;
+  bottom: -15%;
+}
+.toggleButton {
+  background: #ccc;
+  pointer-events: none;
+}
+.inner {
+  display: flex;
+  padding: 10px;
+  justify-content: space-around;
+  flex-flow: column;
+}
+.inner p {
+  margin: 0;
+  font-size: 14px;
+}
+.btnModalContainer button {
+  width: 100px;
+  padding: 5px;
+  font-size: 12px;
+  margin: 5px 5px;
+}
+.btnModalContainer button:nth-of-type(1) {
+  background: black;
+  color: white;
+}
+.btnModalContainer button:nth-of-type(2) {
+  background: rgb(250, 24, 24);
+}
+.btnModalContainer button:hover {
+  opacity: 0.8;
 }
 
 @media screen and (max-width: 768px) {

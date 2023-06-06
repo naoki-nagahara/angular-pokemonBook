@@ -1,10 +1,8 @@
-import { JsonPipe, Location } from '@angular/common';
-import { Component, Inject } from '@angular/core';
+import { Location } from '@angular/common';
+import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { PokemonService } from 'src/app/service/pokemon.service';
 import { PokemonType } from 'src/app/types/Pokemon';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { AppComponent } from 'src/app/app.component';
 
 export interface statusType {
   HP: number;
@@ -22,6 +20,7 @@ export interface statusType {
 })
 export class PokemonDetailComponent {
   pokemon!: PokemonType;
+  isShow = false;
   pawerText = 0;
   attackText = 0;
   defenseText = 0;
@@ -36,7 +35,13 @@ export class PokemonDetailComponent {
     'Sp. Defense': 0,
     Speed: this.speedText,
   };
-  constructor(private active: ActivatedRoute, private location: Location) {}
+  localPoke = JSON.parse(localStorage.getItem('POKEMONS')!);
+
+  constructor(
+    private active: ActivatedRoute,
+    private location: Location,
+    private pokemonService: PokemonService
+  ) {}
 
   ngOnInit() {
     this.getUrl();
@@ -45,8 +50,10 @@ export class PokemonDetailComponent {
   goBack() {
     this.location.back();
   }
+  isToggle() {
+    this.isShow = !this.isShow;
+  }
 
-  localPoke = JSON.parse(localStorage.getItem('POKEMONS')!);
   getUrl() {
     this.active.paramMap.subscribe((map) => {
       this.URLid = Number(map.get('id'));
@@ -62,22 +69,20 @@ export class PokemonDetailComponent {
   }
 
   saveButton() {
-    if (this.isOK) {
-      return;
-    } else {
-      this.location.back();
-      this.newObj = {
-        HP: this.pawerText,
-        Attack: this.attackText,
-        Defense: this.defenseText,
-        'Sp. Attack': 0,
-        'Sp. Defense': 0,
-        Speed: this.speedText,
-      };
-      this.localPoke[this.URLid - 1].base = this.newObj;
-      console.log(this.localPoke[this.URLid - 1]);
-      let newLocalPoke = JSON.stringify(this.localPoke);
-      localStorage.setItem('POKEMONS', newLocalPoke);
-    }
+    let pokeURL = this.localPoke[this.URLid - 1];
+
+    this.newObj = {
+      HP: this.pawerText,
+      Attack: this.attackText,
+      Defense: this.defenseText,
+      'Sp. Attack': 0,
+      'Sp. Defense': 0,
+      Speed: this.speedText,
+    };
+    pokeURL.base = this.newObj;
+    let newLocalPoke = JSON.stringify(this.localPoke);
+    localStorage.setItem('POKEMONS', newLocalPoke);
+    this.pokemonService.setSavePokemon(pokeURL.name.japanese);
+    this.location.back();
   }
 }

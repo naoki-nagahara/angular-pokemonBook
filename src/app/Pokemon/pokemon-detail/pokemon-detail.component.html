@@ -16,7 +16,7 @@
           type="text"
           [(ngModel)]="pawerText"
           [value]="pawerText"
-          (keyup.enter)="saveButton()"
+          (keyup.enter)="isToggle()"
         />
       </div>
       <div>
@@ -24,7 +24,7 @@
         <input
           type="text"
           [(ngModel)]="attackText"
-          (keyup.enter)="saveButton()"
+          (keyup.enter)="isToggle()"
         />
       </div>
       <div>
@@ -33,7 +33,7 @@
           type="text"
           [(ngModel)]="defenseText"
           [value]="pokemon.base.Defense"
-          (keyup.enter)="saveButton()"
+          (keyup.enter)="isToggle()"
         />
       </div>
       <div>
@@ -42,7 +42,7 @@
           type="text"
           [(ngModel)]="speedText"
           value="{{ pokemon.base.Speed }}"
-          (keyup.enter)="saveButton()"
+          (keyup.enter)="isToggle()"
         />
       </div>
     </div>
@@ -51,7 +51,22 @@
     </div>
 
     <div class="saveButton">
-      <button (click)="saveButton()">保存</button>
+      <button class="save" [class.toggleButton]="isShow" (click)="isToggle()">
+        保存
+      </button>
+    </div>
+    <div class="btnModal" [class.isShow]="isShow">
+      <div class="inner">
+        <div>
+          <p>内容を保存しますか？</p>
+        </div>
+        <div class="btnModalContainer">
+          <button (click)="isToggle()">キャンセル</button>
+          <button (keyup.enter)="saveButton()" (click)="saveButton()">
+            保存する
+          </button>
+        </div>
+      </div>
     </div>
   </div>
 </div>
