@@ -1,6 +1,13 @@
 import { Location } from '@angular/common';
 import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import {
+  createPokemon,
+  searchPokemon,
+  sortPokemon,
+} from 'src/app/pokemon.action';
+import { ChangeService } from 'src/app/service/change.service';
 import { PokemonService } from 'src/app/service/pokemon.service';
 import { PokemonType } from 'src/app/types/Pokemon';
 
@@ -40,7 +47,10 @@ export class PokemonDetailComponent {
   constructor(
     private active: ActivatedRoute,
     private location: Location,
-    private pokemonService: PokemonService
+    private pokemonService: PokemonService,
+    private changeService: ChangeService,
+    private router: Router,
+    private store: Store<{ pokeStore: any }>
   ) {}
 
   ngOnInit() {
@@ -70,7 +80,6 @@ export class PokemonDetailComponent {
 
   saveButton() {
     let pokeURL = this.localPoke[this.URLid - 1];
-
     this.newObj = {
       HP: this.pawerText,
       Attack: this.attackText,
@@ -80,9 +89,16 @@ export class PokemonDetailComponent {
       Speed: this.speedText,
     };
     pokeURL.base = this.newObj;
-    let newLocalPoke = JSON.stringify(this.localPoke);
+    let newLocalPoke: any = JSON.stringify(this.localPoke);
+    let setPoke = JSON.parse(newLocalPoke);
+    console.log(setPoke);
     localStorage.setItem('POKEMONS', newLocalPoke);
     this.pokemonService.setSavePokemon(pokeURL.name.japanese);
+    this.store.dispatch(searchPokemon({ pokemon: setPoke }));
     this.location.back();
+    // this.stateBack();
+  }
+  stateBack() {
+    this.router.navigate(['/']);
   }
 }

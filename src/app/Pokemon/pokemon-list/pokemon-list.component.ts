@@ -22,12 +22,19 @@ export class PokemonListComponent implements OnInit, OnDestroy {
 
   constructor(
     private store: Store<{ pokeStore: PokemonType }>,
-    private pokemonService: PokemonService
+    private pokemonService: PokemonService,
+    private changeService: ChangeService
   ) {}
 
   ngOnInit() {
     this.getPokemons();
     this.getModal();
+    console.log('OKOKOK');
+    this.changeService.ReloadApp().subscribe(() => {
+      console.log('OK');
+      this.getPokemons();
+      console.log('OKOKOKOO');
+    });
   }
   ngOnDestroy() {
     this.subscription?.unsubscribe();
@@ -45,10 +52,13 @@ export class PokemonListComponent implements OnInit, OnDestroy {
       }, 2000);
     }
   }
+
   getPokemons() {
     this.newPokemon$ = this.store.select('pokeStore');
     this.subscription = this.newPokemon$.subscribe(
       (poke) => (this.viewPokemon = poke)
+      // (poke) => console.log(poke)
     );
+    console.log(this.viewPokemon);
   }
 }

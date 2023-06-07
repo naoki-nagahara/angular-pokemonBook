@@ -26,6 +26,9 @@ export class ChangeComponent {
   ngOnInit() {
     let get = localStorage.getItem('Number');
     this.int = Number(get);
+    this.store.select('store').subscribe((i) => {
+      // console.log(i.)
+    });
   }
 
   ImageTheme: ('white' | 'dark' | 'middle')[] = [
@@ -56,19 +59,3 @@ export class ChangeComponent {
     );
   }
 }
-
-// select(id: number) {
-//   let items = document.querySelectorAll('.itemImg');
-//   let imgSrc = document.querySelectorAll('img');
-//   let sendImg = imgSrc[id - 1].getAttribute('src');
-//   this.shareService.setShareImage(sendImg);
-//   this.shareService.setReload(true);
-//   items.forEach((item) => {
-//     item.classList.remove('active');
-//   });
-//   items[id - 1].classList.add('active');
-// }
-// if (!itemImage[id - 1].classList.contains('isSelected')) {
-//   itemImage.forEach((i) => i.classList.remove('isSelected'));
-//   itemImage[id - 1].classList.add('isSelected');
-// }

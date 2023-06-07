@@ -15,6 +15,7 @@ export class PokemonService {
     return of(POKEMONAPI);
   }
 
+  //listに更新したポケモンの名前を渡す。
   setSavePokemon(val: any) {
     this.isBool = true;
     return (this.value = val);

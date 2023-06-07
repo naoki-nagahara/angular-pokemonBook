@@ -15,6 +15,10 @@ import { FooterComponent } from './footer/footer.component';
 import { ViewPokemon, changeImage } from './pokemon.reducer';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { SearchTabComponent } from './search/search-tab/search-tab.component';
+import { SearchSelectComponent } from './search/search-select/search-select.component';
+import { SearchFormComponent } from './search/search-form/search-form.component';
+import { SearchInitialButtonComponent } from './search/search-initial-button/search-initial-button.component';
 
 export const contains = {
   store: changeImage,
@@ -32,6 +36,10 @@ export const contains = {
     ItemListComponent,
     ChangeComponent,
     FooterComponent,
+    SearchTabComponent,
+    SearchSelectComponent,
+    SearchFormComponent,
+    SearchInitialButtonComponent,
   ],
   imports: [
     BrowserModule,

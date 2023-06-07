@@ -1,35 +1,29 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { NavigationEnd, Router } from '@angular/router';
-import { PokemonService } from '../service/pokemon.service';
+import { Component } from '@angular/core';
 import { IconDefinition, faSearch } from '@fortawesome/free-solid-svg-icons';
-import { Store } from '@ngrx/store';
-import { searchPokemon } from '../pokemon.action';
-import { PokemonType } from '../types/Pokemon';
+import { PokemonType } from 'src/app/types/Pokemon';
 import { Subscription } from 'rxjs';
+import { PokemonService } from 'src/app/service/pokemon.service';
+import { Store } from '@ngrx/store';
+import { Router } from '@angular/router';
+import { searchPokemon } from 'src/app/pokemon.action';
 
 @Component({
-  selector: 'app-search',
-  templateUrl: './search.component.html',
-  styleUrls: ['./search.component.css'],
+  selector: 'app-search-form',
+  templateUrl: './search-form.component.html',
+  styleUrls: ['./search-form.component.css'],
 })
-export class SearchComponent implements OnInit, OnDestroy {
+export class SearchFormComponent {
   faSearch: IconDefinition = faSearch;
   pokemonList?: PokemonType[];
   isShow: boolean = false;
   isTabShow: boolean = false;
   subscription?: Subscription;
   inputText: string = '';
-
   constructor(
     private router: Router,
     private pokemonService: PokemonService,
-    private store: Store<{ pokeStore: PokemonType }>
+    private store: Store<{ pokemon: PokemonType }>
   ) {}
-
-  ngOnInit() {}
-  ngOnDestroy() {
-    this.subscription?.unsubscribe();
-  }
 
   getPokemon(str: string) {
     //ひらがなをカタカナに置換
@@ -55,10 +49,5 @@ export class SearchComponent implements OnInit, OnDestroy {
       }
       this.router.navigateByUrl('/');
     }
-  }
-  reloadPage() {
-    this.router.navigateByUrl('/').then(() => {
-      window.location.reload();
-    });
   }
 }

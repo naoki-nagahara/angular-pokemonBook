@@ -4,7 +4,7 @@ import {
   searchPokemon,
   sortPokemon,
 } from './pokemon.action';
-import { createReducer, on } from '@ngrx/store';
+import { State, createReducer, on } from '@ngrx/store';
 import { createEffect, Actions, ofType } from '@ngrx/effects';
 import { map, mergeMap } from 'rxjs';
 import { PokemonType } from './types/Pokemon';
@@ -24,10 +24,10 @@ export const initialImage: StoreApp = {
 
 //ローカルにJSONデータをset.getする処理。
 const pokemonJson = JSON.stringify(POKEMONAPI);
+localStorage.setItem('INITIALPOKEMONS', pokemonJson);
 if (!localStorage.getItem('POKEMONS')) {
   localStorage.setItem('POKEMONS', pokemonJson);
 }
-export const localPokemons = JSON.parse(localStorage.getItem('POKEMONS')!);
 
 export const changeImage = createReducer(
   initialImage,
@@ -38,18 +38,28 @@ export const changeImage = createReducer(
     theme: colorTheme,
   }))
 );
+export interface localType {
+  local: JSON;
+  bool?: Boolean;
+}
+export const localPokemons: localType = {
+  local: JSON.parse(localStorage.getItem('POKEMONS')!),
+};
+export const InitialPokemons = JSON.parse(localStorage.getItem('POKEMONS')!);
 
 export const ViewPokemon = createReducer(
   //初期値から、変更した新たなpokemonリストデータを返す
-  localPokemons,
+  InitialPokemons,
   on(createPokemon, (state, { pokemon }) => {
     return ([state] = [pokemon]);
   }),
-  //文字列検索した結果を返す。
+
+  // 文字列検索した結果を返す。
   on(searchPokemon, (state, { pokemon }) => {
     return pokemon;
   }),
-  on(sortPokemon, (state, { pokemon }) => {
+  on(sortPokemon, (state, { pokemon, isSort = false }) => {
+    isSort;
     return (state = pokemon);
   })
 );
