@@ -6,8 +6,10 @@ import { Observable, Subject } from 'rxjs';
 })
 export class ChangeService {
   isShow: boolean = false;
-  constructor() {}
   shareImage: any;
+  selectValue: string = '';
+  constructor() {}
+
   private reloadAppSubject = new Subject<boolean>();
   //画像パスを取得・変更する処理
   getShareImage() {
@@ -23,5 +25,22 @@ export class ChangeService {
   }
   ReloadApp(): Observable<any> {
     return this.reloadAppSubject.asObservable();
+  }
+
+  onSelect(isTypes: string) {
+    switch (isTypes) {
+      case 'HP':
+        this.selectValue = 'HP';
+        break;
+      case 'Attack':
+        this.selectValue = '攻撃';
+        break;
+      case 'Defense':
+        this.selectValue = '防御';
+        break;
+      case 'Speed':
+        this.selectValue = 'スピード';
+        break;
+    }
   }
 }

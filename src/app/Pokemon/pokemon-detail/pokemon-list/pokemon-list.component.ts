@@ -19,9 +19,12 @@ export class PokemonListComponent implements OnInit, OnDestroy {
   subscription?: Subscription;
   getPokemon: any = '';
   isBool?: Boolean;
-
+  isTypes: string = '';
+  type: string = '';
+  selectValue: string = '';
   constructor(
     private store: Store<{ pokeStore: PokemonType }>,
+    private sortStore: Store<{ sortStore: any }>,
     private pokemonService: PokemonService,
     private changeService: ChangeService
   ) {}
@@ -29,12 +32,6 @@ export class PokemonListComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.getPokemons();
     this.getModal();
-    console.log('OKOKOK');
-    this.changeService.ReloadApp().subscribe(() => {
-      console.log('OK');
-      this.getPokemons();
-      console.log('OKOKOKOO');
-    });
   }
   ngOnDestroy() {
     this.subscription?.unsubscribe();
@@ -54,11 +51,13 @@ export class PokemonListComponent implements OnInit, OnDestroy {
   }
 
   getPokemons() {
-    this.newPokemon$ = this.store.select('pokeStore');
-    this.subscription = this.newPokemon$.subscribe(
-      (poke) => (this.viewPokemon = poke)
-      // (poke) => console.log(poke)
-    );
-    console.log(this.viewPokemon);
+    //storeからリストに表示
+    this.subscription = this.sortStore.select('sortStore').subscribe((poke) => {
+      this.viewPokemon = poke.pokemons;
+      this.isTypes = poke.isType;
+      this.changeService.onSelect(this.isTypes);
+      this.selectValue = this.changeService.selectValue;
+      console.log(this.viewPokemon);
+    });
   }
 }

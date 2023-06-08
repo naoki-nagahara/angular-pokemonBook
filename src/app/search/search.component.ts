@@ -3,7 +3,7 @@ import { NavigationEnd, Router } from '@angular/router';
 import { PokemonService } from '../service/pokemon.service';
 import { IconDefinition, faSearch } from '@fortawesome/free-solid-svg-icons';
 import { Store } from '@ngrx/store';
-import { searchPokemon } from '../pokemon.action';
+import { searchPokemonAction } from '../pokemon.action';
 import { PokemonType } from '../types/Pokemon';
 import { Subscription } from 'rxjs';
 
@@ -49,7 +49,9 @@ export class SearchComponent implements OnInit, OnDestroy {
       );
       if (searchResult.length) {
         this.isShow = false;
-        this.store.dispatch(searchPokemon({ pokemon: searchResult }));
+        this.store.dispatch(
+          searchPokemonAction({ pokemon: searchResult, isType: 'HP' })
+        );
       } else {
         this.isShow = true;
       }

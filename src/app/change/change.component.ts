@@ -27,7 +27,7 @@ export class ChangeComponent {
     let get = localStorage.getItem('Number');
     this.int = Number(get);
     this.store.select('store').subscribe((i) => {
-      // console.log(i.)
+      console.log(i);
     });
   }
 

@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
-import { Store, createAction } from '@ngrx/store';
-import { searchPokemon } from 'src/app/pokemon.action';
+import { Store } from '@ngrx/store';
+import { searchPokemonAction } from 'src/app/pokemon.action';
 import { PokemonType } from 'src/app/types/Pokemon';
-import { IconDefinition, faThumbsUp } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-search-initial-button',
@@ -10,17 +9,22 @@ import { IconDefinition, faThumbsUp } from '@fortawesome/free-solid-svg-icons';
   styleUrls: ['./search-initial-button.component.css'],
 })
 export class SearchInitialButtonComponent {
-  faSearch: IconDefinition = faThumbsUp;
   pokemonList?: PokemonType;
   isShow: boolean = false;
+
   constructor(private store: Store<{ store: PokemonType }>) {}
   initialButton() {
+    //書き換え処理が微妙
+    this.isShow = true;
     let initialJson: string = localStorage.getItem('INITIALPOKEMONS')!;
     localStorage.setItem('POKEMONS', initialJson);
     let initialPokemon = JSON.parse(initialJson);
-    this.store.dispatch(searchPokemon({ pokemon: initialPokemon }));
-    // setTimeout(() => {
-    //   this.isShow = false;
-    // }, 800);
+    setTimeout(() => {
+      this.isShow = false;
+      this.store.dispatch(
+        searchPokemonAction({ pokemon: initialPokemon, isType: '' })
+      );
+      window.location.reload();
+    }, 3000);
   }
 }

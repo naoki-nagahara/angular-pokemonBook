@@ -17,7 +17,11 @@
           alt=""
         />
       </li>
-      <li>攻撃：{{ pokemon.base.Attack }}</li>
+      <ng-container *ngIf="isTypes">
+        <li class="typeString">
+          {{ selectValue }}:{{ pokemon.base[isTypes] }}
+        </li>
+      </ng-container>
     </ng-container>
   </ul>
 </div>

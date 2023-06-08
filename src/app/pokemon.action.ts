@@ -1,9 +1,4 @@
-import {
-  createAction,
-  createFeatureSelector,
-  createSelector,
-  props,
-} from '@ngrx/store';
+import { createAction, props } from '@ngrx/store';
 import { PokemonType } from './types/Pokemon';
 
 export const changeAction = createAction(
@@ -15,15 +10,15 @@ export const changeAction = createAction(
   }>()
 );
 
-export const createPokemon = createAction(
+export const createPokemonAction = createAction(
   'createPokemon',
   props<{ pokemon: PokemonType[] }>()
 );
-export const searchPokemon = createAction(
+export const searchPokemonAction = createAction(
   'searchPokemon',
-  props<{ pokemon: PokemonType[] }>()
+  props<{ pokemon: PokemonType; isType: string }>()
 );
-export const sortPokemon = createAction(
+export const sortPokemonAction = createAction(
   'sortPokemon',
-  props<{ pokemon: PokemonType[]; isSort: boolean }>()
+  props<{ pokemon: PokemonType[]; isType: string }>()
 );

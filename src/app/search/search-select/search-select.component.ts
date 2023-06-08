@@ -1,11 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { searchPokemon, sortPokemon } from 'src/app/pokemon.action';
-import { PokemonType } from 'src/app/types/Pokemon';
 import { Subscription } from 'rxjs';
 import { NavigationEnd, Router } from '@angular/router';
-import { Location } from '@angular/common';
-import { ChangeService } from 'src/app/service/change.service';
+import { sortPokemonAction } from 'src/app/pokemon.action';
 @Component({
   selector: 'app-search-select',
   templateUrl: './search-select.component.html',
@@ -16,15 +13,15 @@ export class SearchSelectComponent implements OnDestroy, OnInit {
   selectValue: string = 'HP';
   selectRadio: string = 'upButton';
   subscription?: Subscription;
+  newPoke!: any;
+  pokeList!: any;
   constructor(
-    private store: Store<{ pokeStore: PokemonType; is: boolean }>,
-    private router: Router,
-    private location: Location,
-    private changeService: ChangeService
+    private store: Store<{ sortStore: any }>,
+    private router: Router
   ) {}
+
   ngOnInit() {
     this.getURL();
-    console.log('並び替え');
   }
   ngOnDestroy(): void {
     this.subscription?.unsubscribe();
@@ -50,21 +47,18 @@ export class SearchSelectComponent implements OnDestroy, OnInit {
       }
     });
   }
+
   onClick() {
-    let pokeList: any;
-    let newPoke: any;
-    this.subscription = this.store
-      .select('pokeStore')
-      .subscribe((poke) => (pokeList = poke));
-    newPoke = pokeList
-      .slice()
-      .sort((a: any, b: any) =>
-        this.selectRadio === 'upButton'
+    this.subscription = this.store.select('sortStore').subscribe((poke) => {
+      this.pokeList = poke.pokemons;
+      this.newPoke = this.pokeList.slice().sort((a: any, b: any) => {
+        return this.selectRadio === 'upButton'
           ? b.base[this.selectValue] - a.base[this.selectValue]
-          : a.base[this.selectValue] - b.base[this.selectValue]
-      );
-    console.log(newPoke);
-    this.store.dispatch(sortPokemon({ pokemon: newPoke, isSort: true }));
-    this.changeService.setReload(true);
+          : a.base[this.selectValue] - b.base[this.selectValue];
+      });
+    });
+    this.store.dispatch(
+      sortPokemonAction({ pokemon: this.newPoke, isType: this.selectValue })
+    );
   }
 }

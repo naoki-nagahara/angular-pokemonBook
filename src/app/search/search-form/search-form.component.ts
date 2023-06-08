@@ -5,7 +5,8 @@ import { Subscription } from 'rxjs';
 import { PokemonService } from 'src/app/service/pokemon.service';
 import { Store } from '@ngrx/store';
 import { Router } from '@angular/router';
-import { searchPokemon } from 'src/app/pokemon.action';
+import { searchPokemonAction, sortPokemonAction } from 'src/app/pokemon.action';
+import { SortPokemons } from 'src/app/pokemon.reducer';
 
 @Component({
   selector: 'app-search-form',
@@ -43,7 +44,9 @@ export class SearchFormComponent {
       );
       if (searchResult.length) {
         this.isShow = false;
-        this.store.dispatch(searchPokemon({ pokemon: searchResult }));
+        this.store.dispatch(
+          sortPokemonAction({ pokemon: searchResult, isType: 'Attack' })
+        );
       } else {
         this.isShow = true;
       }
