@@ -60,5 +60,6 @@ export class SearchSelectComponent implements OnDestroy, OnInit {
     this.store.dispatch(
       sortPokemonAction({ pokemon: this.newPoke, isType: this.selectValue })
     );
+    this.router.navigate(['/']);
   }
 }

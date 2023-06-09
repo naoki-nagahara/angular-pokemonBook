@@ -107,6 +107,13 @@ h2 {
 }
 .typeString {
   font-weight: bold;
+  font-size: 16px;
+}
+.typeString p {
+  margin: 0;
+}
+.typeString span {
+  font-size: 20px;
 }
 
 @keyframes jump {

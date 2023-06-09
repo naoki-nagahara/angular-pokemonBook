@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { ChangeService } from 'src/app/service/change.service';
 import { PokemonType } from 'src/app/types/Pokemon';
-import { Subscription, pipe, take } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { PokemonService } from 'src/app/service/pokemon.service';
 
 @Component({
@@ -23,7 +23,6 @@ export class PokemonListComponent implements OnInit, OnDestroy {
   type: string = '';
   selectValue: string = '';
   constructor(
-    private store: Store<{ pokeStore: PokemonType }>,
     private sortStore: Store<{ sortStore: any }>,
     private pokemonService: PokemonService,
     private changeService: ChangeService
@@ -57,7 +56,6 @@ export class PokemonListComponent implements OnInit, OnDestroy {
       this.isTypes = poke.isType;
       this.changeService.onSelect(this.isTypes);
       this.selectValue = this.changeService.selectValue;
-      console.log(this.viewPokemon);
     });
   }
 }

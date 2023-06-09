@@ -1,34 +1,37 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { IconDefinition, faSearch } from '@fortawesome/free-solid-svg-icons';
 import { PokemonType } from 'src/app/types/Pokemon';
 import { Subscription } from 'rxjs';
 import { PokemonService } from 'src/app/service/pokemon.service';
 import { Store } from '@ngrx/store';
 import { Router } from '@angular/router';
-import { searchPokemonAction, sortPokemonAction } from 'src/app/pokemon.action';
-import { SortPokemons } from 'src/app/pokemon.reducer';
+import { sortPokemonAction } from 'src/app/pokemon.action';
 
 @Component({
   selector: 'app-search-form',
   templateUrl: './search-form.component.html',
   styleUrls: ['./search-form.component.css'],
 })
-export class SearchFormComponent {
+export class SearchFormComponent implements OnDestroy {
   faSearch: IconDefinition = faSearch;
   pokemonList?: PokemonType[];
   isShow: boolean = false;
   isTabShow: boolean = false;
+  isInputShow: boolean = false;
   subscription?: Subscription;
   inputText: string = '';
   constructor(
     private router: Router,
     private pokemonService: PokemonService,
-    private store: Store<{ pokemon: PokemonType }>
+    private store: Store<{ sortStore: PokemonType }>
   ) {}
-
+  ngOnDestroy(): void {
+    this.subscription?.unsubscribe();
+  }
   getPokemon(str: string) {
     //ひらがなをカタカナに置換
-    if (this.inputText.length) {
+    if (this.inputText.length > 0) {
+      this.isInputShow = false;
       this.isShow = false;
       let regex = /[ぁ-ゞ]/g;
       let newStr = str.replace(regex, (match) => {
@@ -50,7 +53,10 @@ export class SearchFormComponent {
       } else {
         this.isShow = true;
       }
+      this.inputText = '';
       this.router.navigateByUrl('/');
+    } else {
+      this.isInputShow = true;
     }
   }
 }

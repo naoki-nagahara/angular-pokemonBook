@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { NavigationEnd, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { PokemonService } from '../service/pokemon.service';
 import { IconDefinition, faSearch } from '@fortawesome/free-solid-svg-icons';
 import { Store } from '@ngrx/store';

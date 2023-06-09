@@ -19,7 +19,10 @@
       </li>
       <ng-container *ngIf="isTypes">
         <li class="typeString">
-          {{ selectValue }}:{{ pokemon.base[isTypes] }}
+          <p>
+            {{ selectValue }}:
+            <span>{{ pokemon.base[isTypes] }}</span>
+          </p>
         </li>
       </ng-container>
     </ng-container>

@@ -1,6 +1,5 @@
 import {
   changeAction,
-  createPokemonAction,
   searchPokemonAction,
   sortPokemonAction,
 } from './pokemon.action';
@@ -14,15 +13,19 @@ export interface StoreApp {
   theme: 'dark' | 'white' | 'middle';
 }
 
+export interface pokemonState {
+  pokemons: any;
+  isType?: string;
+}
+export interface localType {
+  local: JSON;
+  bool?: Boolean;
+}
 export const initialImage: StoreApp = {
   id: 1,
   url: 'assets/bgImages/img1.jpg',
   theme: 'white',
 };
-export interface pokemonState {
-  pokemons: any;
-  isType?: string;
-}
 
 //ローカルにJSONデータをset.getする処理。
 const pokemonJson = JSON.stringify(POKEMONAPI);
@@ -40,10 +43,6 @@ export const InitialState: pokemonState = {
   pokemons: InitialPokemons,
   isType: '',
 };
-export interface localType {
-  local: JSON;
-  bool?: Boolean;
-}
 
 export const changeImage = createReducer(
   initialImage,
@@ -63,11 +62,6 @@ export const SortPokemons = createReducer(
       pokemons: pokemon,
       isType: isType,
     };
-
-    // return {
-    //   pokemos: {...state = pokemon},
-    //   isType: isType,
-    // }
   }),
   on(searchPokemonAction, (state, { pokemon }) => {
     return {
@@ -75,21 +69,3 @@ export const SortPokemons = createReducer(
     };
   })
 );
-
-// export const ViewPokemon = createReducer(
-//   //初期値から、変更した新たなpokemonリストデータを返す
-//   InitialPokemons,
-
-//   // 文字列検索した結果を返す。
-//   on(searchPokemonAction, (state, { pokemon }) => {
-//     return pokemon;
-//   })
-// );
-
-// on(createPokemonAction, (state, { pokemon }) => {
-//   return ([state] = [pokemon]);
-// }),
-// on(sortPokemonAction, (state, { pokemon, isType }) => {
-//   isType;
-//   return (state = pokemon);
-// })
