@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
-import { POKEMON } from '../api/pokedex';
-import { Observable, Subject, of } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { POKEMONAPI } from '../api/pokemonAPI';
-import { PokemonType } from '../types/Pokemon';
 
 @Injectable({
   providedIn: 'root',

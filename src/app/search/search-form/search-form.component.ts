@@ -20,13 +20,26 @@ export class SearchFormComponent implements OnDestroy {
   isInputShow: boolean = false;
   subscription?: Subscription;
   inputText: string = '';
+  isType: string = '';
+  selectedType: string = '';
+  isSearch: boolean = false;
   constructor(
     private router: Router,
     private pokemonService: PokemonService,
-    private store: Store<{ sortStore: PokemonType }>
+    private store: Store<{ sortStore: any }>
   ) {}
+  ngOnInit() {
+    this.getStore();
+  }
   ngOnDestroy(): void {
     this.subscription?.unsubscribe();
+  }
+  getStore() {
+    this.subscription = this.store.select('sortStore').subscribe((poke) => {
+      this.isType = poke.isType;
+      this.selectedType = poke.selectType;
+      this.isSearch = poke.isSearch;
+    });
   }
   getPokemon(str: string) {
     //ひらがなをカタカナに置換
@@ -38,9 +51,8 @@ export class SearchFormComponent implements OnDestroy {
         const charCode = match.charCodeAt(0) + 0x60;
         return String.fromCharCode(charCode);
       });
-      this.subscription = this.pokemonService.getPokemon().subscribe((poke) => {
-        this.pokemonList = poke;
-      });
+      let localPokemon = localStorage.getItem('POKEMONS');
+      this.pokemonList = JSON.parse(localPokemon!);
 
       let searchResult: any = this.pokemonList?.filter((i) =>
         i.name.japanese.includes(newStr)
@@ -48,7 +60,12 @@ export class SearchFormComponent implements OnDestroy {
       if (searchResult.length) {
         this.isShow = false;
         this.store.dispatch(
-          sortPokemonAction({ pokemon: searchResult, isType: 'Attack' })
+          sortPokemonAction({
+            pokemon: searchResult,
+            isType: this.isType,
+            selectType: this.selectedType,
+            isSearch: true,
+          })
         );
       } else {
         this.isShow = true;

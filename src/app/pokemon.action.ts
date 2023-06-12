@@ -20,5 +20,10 @@ export const searchPokemonAction = createAction(
 );
 export const sortPokemonAction = createAction(
   'sortPokemon',
-  props<{ pokemon: PokemonType[]; isType: string }>()
+  props<{
+    pokemon: PokemonType;
+    isType: string;
+    selectType: string;
+    isSearch: boolean;
+  }>()
 );

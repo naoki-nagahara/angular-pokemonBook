@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { searchPokemonAction } from 'src/app/pokemon.action';
 import { PokemonType } from 'src/app/types/Pokemon';
@@ -12,9 +13,11 @@ export class SearchInitialButtonComponent {
   pokemonList?: PokemonType;
   isShow: boolean = false;
 
-  constructor(private store: Store<{ store: PokemonType }>) {}
+  constructor(
+    private router: Router,
+    private store: Store<{ store: PokemonType }>
+  ) {}
   initialButton() {
-    //書き換え処理が微妙
     this.isShow = true;
     let initialJson: string = localStorage.getItem('INITIALPOKEMONS')!;
     localStorage.setItem('POKEMONS', initialJson);
@@ -24,7 +27,7 @@ export class SearchInitialButtonComponent {
       this.store.dispatch(
         searchPokemonAction({ pokemon: initialPokemon, isType: '' })
       );
-      window.location.reload();
+      this.router.navigate(['/']);
     }, 3000);
   }
 }

@@ -16,6 +16,8 @@ export interface StoreApp {
 export interface pokemonState {
   pokemons: any;
   isType?: string;
+  selectType?: string;
+  isSearch?: boolean;
 }
 export interface localType {
   local: JSON;
@@ -42,6 +44,7 @@ export const InitialPokemons = JSON.parse(localStorage.getItem('POKEMONS')!);
 export const InitialState: pokemonState = {
   pokemons: InitialPokemons,
   isType: '',
+  selectType: '',
 };
 
 export const changeImage = createReducer(
@@ -57,10 +60,13 @@ export const changeImage = createReducer(
 export const SortPokemons = createReducer(
   //初期値から、変更した新たなpokemonリストデータを返す
   InitialState,
-  on(sortPokemonAction, (state, { isType, pokemon }) => {
+  on(sortPokemonAction, (state, { isType, pokemon, selectType, isSearch }) => {
+    console.log(isType, 'reducerType');
     return {
       pokemons: pokemon,
       isType: isType,
+      selectType: selectType,
+      isSearch: isSearch,
     };
   }),
   on(searchPokemonAction, (state, { pokemon }) => {

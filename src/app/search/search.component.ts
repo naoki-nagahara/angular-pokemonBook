@@ -50,7 +50,7 @@ export class SearchComponent implements OnInit, OnDestroy {
       if (searchResult.length) {
         this.isShow = false;
         this.store.dispatch(
-          searchPokemonAction({ pokemon: searchResult, isType: 'HP' })
+          searchPokemonAction({ pokemon: searchResult, isType: '' })
         );
       } else {
         this.isShow = true;

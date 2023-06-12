@@ -26,6 +26,7 @@ export class AppComponent {
     this.image$!.subscribe((url: StoreApp) => (this.imageUrl = url.url));
     this.isColor$ = this.store.select('store');
     this.isColor$.subscribe((val) => (this.theme = val.theme));
+    
 
     if (localStorage.length) {
       this.imageUrl = localStorage.getItem('bgImage')!;
