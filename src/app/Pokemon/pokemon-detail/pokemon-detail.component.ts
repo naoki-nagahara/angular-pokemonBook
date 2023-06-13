@@ -172,12 +172,13 @@ export class PokemonDetailComponent implements OnDestroy, OnInit {
     let stringJson = JSON.stringify(newPoke);
     let pokemonSendAction = JSON.parse(stringJson);
     console.log(pokemonSendAction);
-    if (!this.isType.length) {
+    console.log(this.isType);
+    if (!this.isType && this.isType === undefined) {
       console.log('初期並びだけ発火');
       this.store.dispatch(
         sortPokemonAction({
           pokemon: pokemonSendAction,
-          isType: this.isType,
+          isType: '',
           selectType: this.selectedType,
           isSearch: this.isSearch,
         })
@@ -190,6 +191,7 @@ export class PokemonDetailComponent implements OnDestroy, OnInit {
       let JsonPokemon = JSON.stringify(newPoke);
       let pokemonSendAction = JSON.parse(JsonPokemon);
       console.log(newPoke);
+
       this.store.dispatch(
         sortPokemonAction({
           pokemon: pokemonSendAction,
