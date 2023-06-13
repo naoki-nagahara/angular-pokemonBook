@@ -2,7 +2,6 @@ import { Component, OnDestroy } from '@angular/core';
 import { IconDefinition, faSearch } from '@fortawesome/free-solid-svg-icons';
 import { PokemonType } from 'src/app/types/Pokemon';
 import { Subscription } from 'rxjs';
-import { PokemonService } from 'src/app/service/pokemon.service';
 import { Store } from '@ngrx/store';
 import { Router } from '@angular/router';
 import { sortPokemonAction } from 'src/app/pokemon.action';
@@ -25,7 +24,6 @@ export class SearchFormComponent implements OnDestroy {
   isSearch: boolean = false;
   constructor(
     private router: Router,
-    private pokemonService: PokemonService,
     private store: Store<{ sortStore: any }>
   ) {}
   ngOnInit() {
@@ -62,8 +60,8 @@ export class SearchFormComponent implements OnDestroy {
         this.store.dispatch(
           sortPokemonAction({
             pokemon: searchResult,
-            isType: this.isType,
-            selectType: this.selectedType,
+            isType: '',
+            selectType: '',
             isSearch: true,
           })
         );

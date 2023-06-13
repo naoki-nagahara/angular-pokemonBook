@@ -139,51 +139,141 @@ export class PokemonDetailComponent implements OnDestroy, OnInit {
       arr[this.URLid - 1].name.japanese
     );
   }
-
-  saveButton() {
-    this.getObj();
-    this.getSubstPokemon();
+  searchResultSaveFunction() {
+    console.log('検索され、リポケリストが表示されていた場合');
     let getLocalPokemon = localStorage.getItem('POKEMONS');
-    if (this.isSearch === true) {
-      let newLocalPoke = JSON.parse(getLocalPokemon!);
-      newLocalPoke[this.URLid - 1].base = this.newObj;
-      this.sendPokemonName(this.localPoke);
-      let setPoke = JSON.stringify(newLocalPoke);
-      localStorage.setItem('POKEMONS', setPoke);
-      let replacePokemon = JSON.parse(setPoke);
-      const newPokemonArray = replacePokemon.filter((item1: PokemonId) => {
-        return this.poke.some((item2: PokemonId) => item1.id === item2.id);
-      });
-      this.originalSort(newPokemonArray);
+    let newLocalPoke = JSON.parse(getLocalPokemon!);
+    newLocalPoke[this.URLid - 1].base = this.newObj;
+    this.sendPokemonName(this.localPoke);
+    let setPoke = JSON.stringify(newLocalPoke);
+    localStorage.setItem('POKEMONS', setPoke);
+    let replacePokemon = JSON.parse(setPoke);
+    const newPokemonArray = replacePokemon.filter((item1: PokemonId) => {
+      return this.poke.some((item2: PokemonId) => item1.id === item2.id);
+    });
+    this.originalSort(newPokemonArray);
+    this.store.dispatch(
+      sortPokemonAction({
+        pokemon: newPokemonArray,
+        isType: this.isType,
+        selectType: this.selectedType,
+        isSearch: this.isSearch,
+      })
+    );
+    this.location.back();
+  }
+  sortResultSaveFunction() {
+    console.log('並びかえまたは初期リストが表示されている場合');
+    let newPoke = JSON.parse(JSON.stringify(this.poke));
+    newPoke[this.URLid - 1].base = this.newObj;
+    let localSavePokemon = JSON.stringify(newPoke);
+    localStorage.setItem('POKEMONS', localSavePokemon);
+    this.sendPokemonName(newPoke);
+    let stringJson = JSON.stringify(newPoke);
+    let pokemonSendAction = JSON.parse(stringJson);
+    console.log(pokemonSendAction);
+    if (!this.isType.length) {
+      console.log('初期並びだけ発火');
       this.store.dispatch(
         sortPokemonAction({
-          pokemon: newPokemonArray,
+          pokemon: pokemonSendAction,
           isType: this.isType,
           selectType: this.selectedType,
           isSearch: this.isSearch,
         })
       );
-      this.location.back();
-    } else {
-      let newPoke = JSON.parse(JSON.stringify(this.poke));
-      newPoke[this.URLid - 1].base = this.newObj;
-      let localSavePokemon = JSON.stringify(newPoke);
-      localStorage.setItem('POKEMONS', localSavePokemon);
+    }
+    if (this.isType.length) {
+      console.log('ステータス順で並び替えされた場合');
       this.sendPokemonName(newPoke);
-      if (this.isType.length) {
-        let parsePokemon = JSON.parse(getLocalPokemon!);
-        this.originalSort(parsePokemon);
-        this.sendPokemonName(newPoke);
-        this.store.dispatch(
-          sortPokemonAction({
-            pokemon: parsePokemon,
-            isType: this.isType,
-            selectType: this.selectedType,
-            isSearch: this.isSearch,
-          })
-        );
-      }
-      this.location.back();
+      this.originalSort(newPoke);
+      let JsonPokemon = JSON.stringify(newPoke);
+      let pokemonSendAction = JSON.parse(JsonPokemon);
+      console.log(newPoke);
+      this.store.dispatch(
+        sortPokemonAction({
+          pokemon: pokemonSendAction,
+          isType: this.isType,
+          selectType: this.selectedType,
+          isSearch: this.isSearch,
+        })
+      );
+    }
+    this.location.back();
+  }
+
+  saveButton() {
+    this.getObj();
+    this.getSubstPokemon();
+    if (this.isSearch === true) {
+      this.searchResultSaveFunction();
+    } else {
+      this.sortResultSaveFunction();
     }
   }
+
+  // saveButton() {
+  //   this.getObj();
+  //   this.getSubstPokemon();
+  //   if (this.isSearch === true) {
+  //     console.log('検索され、リポケリストが表示されていた場合');
+  //     let getLocalPokemon = localStorage.getItem('POKEMONS');
+  //     let newLocalPoke = JSON.parse(getLocalPokemon!);
+  //     newLocalPoke[this.URLid - 1].base = this.newObj;
+  //     this.sendPokemonName(this.localPoke);
+  //     let setPoke = JSON.stringify(newLocalPoke);
+  //     localStorage.setItem('POKEMONS', setPoke);
+  //     let replacePokemon = JSON.parse(setPoke);
+  //     const newPokemonArray = replacePokemon.filter((item1: PokemonId) => {
+  //       return this.poke.some((item2: PokemonId) => item1.id === item2.id);
+  //     });
+  //     this.originalSort(newPokemonArray);
+  //     this.store.dispatch(
+  //       sortPokemonAction({
+  //         pokemon: newPokemonArray,
+  //         isType: this.isType,
+  //         selectType: this.selectedType,
+  //         isSearch: this.isSearch,
+  //       })
+  //     );
+  //     this.location.back();
+  //   } else {
+  //     console.log('並びかえまたは初期リストが表示されている場合');
+  //     let newPoke = JSON.parse(JSON.stringify(this.poke));
+  //     newPoke[this.URLid - 1].base = this.newObj;
+  //     let localSavePokemon = JSON.stringify(newPoke);
+  //     localStorage.setItem('POKEMONS', localSavePokemon);
+  //     this.sendPokemonName(newPoke);
+  //     let stringJson = JSON.stringify(newPoke);
+  //     let pokemonSendAction = JSON.parse(stringJson);
+  //     console.log(pokemonSendAction);
+  //     if (!this.isType.length) {
+  //       console.log('初期並びだけ発火');
+  //       this.store.dispatch(
+  //         sortPokemonAction({
+  //           pokemon: pokemonSendAction,
+  //           isType: this.isType,
+  //           selectType: this.selectedType,
+  //           isSearch: this.isSearch,
+  //         })
+  //       );
+  //     }
+  //     if (this.isType.length) {
+  //       console.log('ステータス順で並び替えされた場合');
+  //       this.originalSort(newPoke);
+  //       this.sendPokemonName(newPoke);
+  //       let stringJson = JSON.stringify(newPoke);
+  //       let pokemonSendAction = JSON.parse(stringJson);
+  //       this.store.dispatch(
+  //         sortPokemonAction({
+  //           pokemon: pokemonSendAction,
+  //           isType: this.isType,
+  //           selectType: this.selectedType,
+  //           isSearch: this.isSearch,
+  //         })
+  //       );
+  //     }
+  //     this.location.back();
+  //   }
+  // }
 }
