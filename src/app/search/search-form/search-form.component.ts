@@ -51,7 +51,6 @@ export class SearchFormComponent implements OnDestroy {
       });
       let localPokemon = localStorage.getItem('POKEMONS');
       this.pokemonList = JSON.parse(localPokemon!);
-
       let searchResult: any = this.pokemonList?.filter((i) =>
         i.name.japanese.includes(newStr)
       );

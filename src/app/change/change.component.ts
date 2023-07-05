@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { IMGLIST } from '../api/imgList';
-import { ChangeService } from '../service/change.service';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { StoreApp } from '../pokemon.reducer';

@@ -81,8 +81,3 @@ export class SearchSelectComponent implements OnDestroy, OnInit {
   }
 }
 
-/*
-// const aValue = a.base[this.isType as keyof typeof a.base] as number;
-この型定義の意味
-結果として、baseオブジェクトのstringがほしいが、
-*/

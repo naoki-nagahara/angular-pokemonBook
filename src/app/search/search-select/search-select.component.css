@@ -1,11 +1,8 @@
 .select-box {
   display: flex;
   align-items: center;
-  /* display: none; */
 }
-/* .areaForm {
 
-} */
 select {
   padding: 6px;
   font-size: 14px;

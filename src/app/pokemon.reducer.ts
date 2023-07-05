@@ -30,6 +30,7 @@ export const initialImage: StoreApp = {
 };
 
 //ローカルにJSONデータをset.getする処理。
+
 const pokemonJson = JSON.stringify(POKEMONAPI);
 localStorage.setItem('INITIALPOKEMONS', pokemonJson);
 if (!localStorage.getItem('POKEMONS')) {
